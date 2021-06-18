@@ -1,0 +1,108 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+
+    display: flex;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+aside {
+    width: 100px;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(47, 40, 65);
+}
+
+cellmode {
+    width: 100px;
+    padding-top: 80px;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+
+    background-size: 70px;
+    background-position: center 10px;
+    background-repeat: no-repeat;
+
+    margin-bottom: 20px;
+}
+
+cellmode.active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+cellmode.clear {
+    background-image: url(img/road.svg);
+}
+
+cellmode.wall {
+    background-image: url(img/brickwall.svg);
+}
+
+cellmode.food {
+    background-image: url(img/sugar-bowl.svg);
+}
+
+cellmode.anthill {
+    background-image: url(img/anthill.svg);
+}
+
+content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+cells {
+    width: 800px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+row {
+    display: flex;
+    height: 100%;
+    margin-top: -1px;
+}
+
+cell {
+    display: flex;
+    width: 100%;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    margin-left: -1px;
+    cursor: pointer;
+
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+cell:hover {
+    background-color: #ddd;
+}
+
+cell.clear {
+    
+}
+
+cell.wall {
+    background-color: rgb(44, 70, 78);
+}
+
+cell.food {
+    background-image: url(img/sugar-bowl.svg);
+}
+
+cell.anthill {
+    background-image: url(img/anthill.svg);
+}
