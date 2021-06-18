@@ -1,7 +1,7 @@
 import { CellType } from "./cell-type.js";
 export class Cell {
     constructor(x, y) {
-        this._type = CellType.CLEAR;
+        this._type = CellType.WALL;
         this._pheromone = 0;
         this._neighbors = [];
     }
@@ -12,5 +12,9 @@ export class Cell {
     get pheromone() { return this._pheromone; }
     addPheromone(quantity) {
         this._pheromone += quantity;
+        if (this._pheromone > 1)
+            this._pheromone = 1;
+        else if (this._pheromone < 0)
+            this._pheromone = 0;
     }
 }

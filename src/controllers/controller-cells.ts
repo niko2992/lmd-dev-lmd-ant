@@ -1,3 +1,4 @@
+import { Ant } from "../models/ant.js";
 import { CellType } from "../models/cell-type.js";
 import { Cell } from "../models/cell.js";
 import { Notifier } from "../pattern/notifier.js";
@@ -10,12 +11,17 @@ export class ControllerCells extends Notifier
     private _cellMode : CellType;
     public get cellMode() : CellType {return this._cellMode; }
     public set cellMode(value : CellType) { this._cellMode = value; this.notify();}
+
+    private readonly _ants: Ant[];
+    public get ants(): Ant[] { return this._ants; };
+    
     
     constructor()
     {
         super();
 
         this._cells = [];
+        this._ants = [];
         this._cellMode = CellType.CLEAR;
     }
 
@@ -48,6 +54,9 @@ export class ControllerCells extends Notifier
             }
         }
 
+        this.cells[8][2].type = CellType.ANTHILL;
+        this.cells[2][8].type = CellType.FOOD;
+
         this.notify();
     }
 
@@ -55,5 +64,44 @@ export class ControllerCells extends Notifier
     {
         cell.type = this.cellMode;
         this.notify();
+    }
+
+    createAnt()
+    {
+        const iRow = 8;
+        const iColumn = 2;
+
+        this.ants.push(new Ant(this.cells[iRow][iColumn]));
+        this.notify();
+    }
+
+    start()
+    {
+        setInterval(() => {
+            this.moveAnts();
+            this.evaporatePheromones();
+        }, 500);
+    }
+
+    moveAnts()
+    {
+        this.ants.forEach((ant) => { ant.move(); });
+        this.notify();
+    }
+
+    evaporatePheromones()
+    {
+        this.cells.forEach((row) => {
+            row.forEach((cell) => { cell.addPheromone(-0.01); });
+        });
+    }
+
+    getAntQuantity(cell: Cell): number
+    {
+        let quantity = 0;
+
+        this.ants.forEach((ant) => { if(ant.currentCell === cell) ++quantity; });
+
+        return quantity;
     }
 }

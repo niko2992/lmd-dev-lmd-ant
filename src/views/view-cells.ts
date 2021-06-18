@@ -21,6 +21,8 @@ export class ViewCells implements Observer
         document.querySelector("cellmode.wall").addEventListener("click", () => { this._controllerCells.cellMode = CellType.WALL; });
         document.querySelector("cellmode.food").addEventListener("click", () => { this._controllerCells.cellMode = CellType.FOOD; });
         document.querySelector("cellmode.anthill").addEventListener("click", () => { this._controllerCells.cellMode = CellType.ANTHILL; });
+
+        document.querySelector("button").addEventListener("click", () => { this._controllerCells.start(); });
     }
     
     notify()
@@ -54,6 +56,14 @@ export class ViewCells implements Observer
             row.forEach((cell) => {
                 const cellHTML = document.createElement("cell");
                 cellHTML.classList.add(this.getCellCSSClass(cell));
+
+                //représentation du taux de phéromones
+                cellHTML.innerHTML += `<pheromone style="opacity:${cell.pheromone}"></pheromone>`;
+
+                //Représentation des fourmis situées sur la cellule
+                const antQuantity = this._controllerCells.getAntQuantity(cell);
+                for(let iAnt = 0; iAnt < antQuantity; ++iAnt)
+                    cellHTML.innerHTML += "<ant></ant>";
 
                 cellHTML.addEventListener("click", () => { this._controllerCells.changeCellType(cell); });
 

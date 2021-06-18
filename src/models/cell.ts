@@ -14,7 +14,7 @@ export class Cell
 
     constructor(x: number, y: number)
     {
-        this._type = CellType.CLEAR;
+        this._type = CellType.WALL;
         this._pheromone = 0;
         this._neighbors = [];
     }
@@ -22,5 +22,10 @@ export class Cell
     addPheromone(quantity: number)
     {
         this._pheromone += quantity;
+
+        if(this._pheromone > 1)
+            this._pheromone = 1;
+        else if(this._pheromone < 0)
+            this._pheromone = 0;
     }
 }
