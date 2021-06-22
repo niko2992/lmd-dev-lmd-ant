@@ -22,7 +22,8 @@ export class ViewCells implements Observer
         document.querySelector("cellmode.food").addEventListener("click", () => { this._controllerCells.cellMode = CellType.FOOD; });
         document.querySelector("cellmode.anthill").addEventListener("click", () => { this._controllerCells.cellMode = CellType.ANTHILL; });
 
-        document.querySelector("button").addEventListener("click", () => { this._controllerCells.start(); });
+        document.getElementById("startButton").addEventListener("click", () => { this._controllerCells.start(); });
+        document.getElementById("pauseButton").addEventListener("click", () => { this._controllerCells.pause(); });
     }
     
     notify()
@@ -62,8 +63,21 @@ export class ViewCells implements Observer
 
                 //Représentation des fourmis situées sur la cellule
                 const antQuantity = this._controllerCells.getAntQuantity(cell);
-                for(let iAnt = 0; iAnt < antQuantity; ++iAnt)
-                    cellHTML.innerHTML += "<ant></ant>";
+                
+                // Old
+                // for(let iAnt = 0; iAnt < antQuantity; ++iAnt)
+                //     cellHTML.innerHTML += "<ant></ant>";
+
+                // Not working properly because opacity renders text unreadable
+                // if (antQuantity > 0)
+                //     cellHTML.innerHTML += `<ant></ant><small>${antQuantity}</small>`;
+
+                if (antQuantity > 0)
+                {
+                    let antSize = 20 / Math.sqrt(antQuantity);
+                    for (let iAnt = 0; iAnt < antQuantity; ++iAnt)
+                        cellHTML.innerHTML += `<ant style="width: ${antSize}px;height: ${antSize}px;"></ant>`;
+                }
 
                 cellHTML.addEventListener("click", () => { this._controllerCells.changeCellType(cell); });
 

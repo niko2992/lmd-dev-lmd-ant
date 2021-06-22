@@ -11,6 +11,7 @@ export class ControllerCells extends Notifier {
     _ants;
     get ants() { return this._ants; }
     ;
+    timerId = null;
     constructor() {
         super();
         this._cells = [];
@@ -41,6 +42,30 @@ export class ControllerCells extends Notifier {
         }
         this.cells[8][2].type = CellType.ANTHILL;
         this.cells[2][8].type = CellType.FOOD;
+        // Path to food
+        this.cells[3][8].type = CellType.CLEAR;
+        this.cells[4][8].type = CellType.CLEAR;
+        this.cells[5][8].type = CellType.CLEAR;
+        this.cells[6][8].type = CellType.CLEAR;
+        this.cells[6][7].type = CellType.CLEAR;
+        this.cells[6][6].type = CellType.CLEAR;
+        this.cells[6][5].type = CellType.CLEAR;
+        this.cells[6][6].type = CellType.CLEAR;
+        this.cells[7][5].type = CellType.CLEAR;
+        this.cells[8][5].type = CellType.CLEAR;
+        this.cells[8][4].type = CellType.CLEAR;
+        this.cells[8][3].type = CellType.CLEAR;
+        // Round trip
+        this.cells[9][4].type = CellType.CLEAR;
+        this.cells[10][4].type = CellType.CLEAR;
+        this.cells[11][4].type = CellType.CLEAR;
+        this.cells[11][5].type = CellType.CLEAR;
+        this.cells[11][6].type = CellType.CLEAR;
+        this.cells[11][7].type = CellType.CLEAR;
+        this.cells[10][7].type = CellType.CLEAR;
+        this.cells[9][7].type = CellType.CLEAR;
+        this.cells[8][7].type = CellType.CLEAR;
+        this.cells[8][6].type = CellType.CLEAR;
         this.notify();
     }
     changeCellType(cell) {
@@ -54,10 +79,17 @@ export class ControllerCells extends Notifier {
         this.notify();
     }
     start() {
-        setInterval(() => {
-            this.moveAnts();
-            this.evaporatePheromones();
-        }, 500);
+        if (!this.timerId) {
+            this.timerId = setInterval(() => {
+                this.moveAnts();
+                this.evaporatePheromones();
+            }, 500);
+        }
+    }
+    pause() {
+        if (this.timerId)
+            clearInterval(this.timerId);
+        this.timerId = null;
     }
     moveAnts() {
         this.ants.forEach((ant) => { ant.move(); });
