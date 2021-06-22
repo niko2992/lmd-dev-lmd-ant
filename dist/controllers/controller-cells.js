@@ -3,17 +3,20 @@ import { CellType } from "../models/cell-type.js";
 import { Cell } from "../models/cell.js";
 import { Notifier } from "../pattern/notifier.js";
 export class ControllerCells extends Notifier {
+    _cells;
+    get cells() { return this._cells; }
+    _cellMode;
+    get cellMode() { return this._cellMode; }
+    set cellMode(value) { this._cellMode = value; this.notify(); }
+    _ants;
+    get ants() { return this._ants; }
+    ;
     constructor() {
         super();
         this._cells = [];
         this._ants = [];
         this._cellMode = CellType.CLEAR;
     }
-    get cells() { return this._cells; }
-    get cellMode() { return this._cellMode; }
-    set cellMode(value) { this._cellMode = value; this.notify(); }
-    get ants() { return this._ants; }
-    ;
     initCells(gridSize) {
         this._cells.length = 0;
         for (let iRow = 0; iRow < gridSize; ++iRow) {

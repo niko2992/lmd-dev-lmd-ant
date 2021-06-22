@@ -1,4 +1,5 @@
 export class Notifier {
+    _observers;
     constructor() {
         this._observers = [];
     }

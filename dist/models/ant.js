@@ -1,15 +1,19 @@
 import { CellType } from "./cell-type.js";
 export class Ant {
+    _currentCell;
+    get currentCell() { return this._currentCell; }
+    _lastCell;
+    get lastCell() { return this._lastCell; }
+    path;
+    _goal;
+    get goal() { return this._goal; }
+    set goal(value) { this._goal = value; }
     constructor(origin) {
         this._currentCell = origin;
         this._lastCell = null;
         this.path = [];
         this._goal = CellType.FOOD;
     }
-    get currentCell() { return this._currentCell; }
-    get lastCell() { return this._lastCell; }
-    get goal() { return this._goal; }
-    set goal(value) { this._goal = value; }
     move() {
         if (this.goal === CellType.FOOD || this.path.length === 0) {
             const possibleDirections = this.getPossibleDirections();

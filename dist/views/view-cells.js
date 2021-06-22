@@ -1,5 +1,6 @@
 import { CellType } from "../models/cell-type.js";
 export class ViewCells {
+    _controllerCells;
     constructor(controllerCells) {
         this._controllerCells = controllerCells;
         this._controllerCells.addObserver(this);

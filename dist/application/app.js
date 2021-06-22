@@ -1,6 +1,8 @@
 import { ControllerCells } from "../controllers/controller-cells.js";
 import { ViewCells } from "../views/view-cells.js";
 class AntApp {
+    _controllerCells;
+    _viewCells;
     constructor() {
         this._controllerCells = new ControllerCells();
         this._viewCells = new ViewCells(this._controllerCells);
