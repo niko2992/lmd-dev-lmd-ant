@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    name: "k8stest-8124"
+    labels:
+        app: "k8stest-8124"
+    annotations:
+        kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+    rules:
+        - host: k8s-testac70-k8stest-8124.e4818d9c29b048a482bc.westeurope.aksapp.io
+          http:
+            paths:
+            - path: /
+              backend:
+                serviceName: "k8stest-8124"
+                servicePort: 3000
