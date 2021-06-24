@@ -6,7 +6,7 @@ class AntApp {
     constructor() {
         this._controllerCells = new ControllerCells();
         this._viewCells = new ViewCells(this._controllerCells);
-        let size = 30;
+        let size = 20;
         let nbAnts = 30;
         let speed = 4; // >= 1; 1 = 1s, 2 = 500ms, 3 = 333ms, etc.
         this._controllerCells.init(size, nbAnts, speed);

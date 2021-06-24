@@ -5,6 +5,7 @@
   "main": "dist/application/index.js",
   "type": "module",
   "scripts": {
+    "build": "npm install",
     "start": "tsc && node dist/application/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
